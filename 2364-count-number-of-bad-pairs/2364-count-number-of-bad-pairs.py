@@ -1,18 +1,11 @@
 class Solution:
     def countBadPairs(self, nums: List[int]) -> int:
-        bad_pairs = 0
-        diff_count = {}
+        freq = {}
+        good_pairs = 0                  # good_pair:- i - nums[i] == j - nums[j]
+        n = len(nums)
+        for i, num in enumerate(nums):
+            key = num - i                    # Calculating the pos - nums[pos] difference   
+            good_pairs += freq.get(key, 0)
+            freq[key] = freq.get(key, 0) + 1    # Updating the map with same difference.
 
-        for pos in range(len(nums)):
-            diff = pos - nums[pos]
-
-            # Count of previous positions with same difference
-            good_pairs_count = diff_count.get(diff, 0)
-
-            # Total possible pairs minus good pairs = bad pairs
-            bad_pairs += pos - good_pairs_count
-
-            # Update count of positions with this difference
-            diff_count[diff] = good_pairs_count + 1
-
-        return bad_pairs
+        return (n * (n - 1)) // 2 - good_pairs   # nC2 = n(n-1)/2 is for calculating total pairs
