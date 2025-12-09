@@ -15,7 +15,7 @@ class Solution:
 
             target = nums[j] * 2
             if target in left and target in right:
-                res = (res + left[target] * right[target]) % mod
+                res = (res+ left[target] * right[target]) % mod
 
             left[nums[j]] += 1
 
